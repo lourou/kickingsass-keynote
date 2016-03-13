@@ -1,0 +1,827 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Kicking Sass: How to Write CSS in a PostCSS World</title>
+
+		<meta name="description" content="Kicking Sass: How to Write CSS in a PostCSS World">
+		<meta name="author" content="Aaron Ladage">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="assets/css/reveal.min.css">
+		<link rel="stylesheet" href="assets/css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="assets/css/zenburn.css">
+		<link rel="stylesheet" href="assets/css/styles.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'assets/css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="assets/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Kicking Sass</h1>
+					<h3>How to Write CSS in a PostCSS World</h3><br>
+					<h2>#kicksass</h2>
+				</section>
+
+				<section>
+					<img style="left: -200px; position: relative; border: none; background: none; outline: none; box-shadow: none;" src="assets/images/headshot.png" alt="headshot">
+					<div style="position: absolute; top: 110px; text-align: left; left: 525px; width: 650px;">
+						<h2>Aaron Ladage</h2>
+						<ul style="margin-left: 0">
+							<li style="list-style: none;">UI Engineer</li>
+							<li style="list-style: none;">DEG, Kansas City</li>
+						</ul>
+					</div>
+				</section>
+
+				<section data-background="assets/images/deg0.png">
+				</section>
+
+				<section data-background="assets/images/deg2.png">
+				</section>
+
+				<section data-background="assets/images/deg1.png">
+				</section>
+
+				<section data-background="assets/images/joeskc.jpg">
+				</section>
+
+				<section data-background="assets/images/royals.png">
+				</section>
+
+				<section data-background="assets/images/royals2.jpg">
+				</section>
+
+				<section data-background="assets/images/deg4.png">
+				</section>
+
+				<section>
+					<h1>Can we get back<br>to basics?</h1>
+					<p>(Spoiler alert: we did.)</p>
+				</section>
+
+				<section>
+					<h2>Today's Agenda:</h2>
+					<ul>
+						<li>Project GitHub repository walkthrough</li>
+						<li>Explain postprocessors (CSS) and transpilers (JS)</li>
+						<li>Workshop:
+							<ol>
+								<li>PostCSS</li>
+								<li>ES6/Babel</li>
+								<li>System.js/JSPM</li>
+							</ol>
+						</li>
+				</section>
+
+				<section>
+					<h2 style="font-family: Arial; font-size: 70px; text-transform: none;">GitHub Repo: <a href="http://bit.ly/1LXTrZZ" target="_blank">bit.ly/1LXTrZZ</a></h2><br>
+					<h3 style="font-family: Arial; font-size: 40px; text-transform: none;">Slides: <a href="http://bit.ly/1LXTuVq" target="_blank">bit.ly/1LXTuVq</a></h3>
+				</section>
+
+				<section>
+					<h2>Project GitHub Repo:</h2>
+					<img class="stretch" src="assets/images/repowalkthrough1.gif" alt="repo walkthrough">
+				</section>
+
+				<section>
+					<h2>Software Requirements</h2>
+					<ul>
+						<li class="fragment">Git</li>
+						<li class="fragment">Node.js</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Software Requirements</h2>
+					<p>Also, make sure you have:</p>
+					<ul>
+						<li class="fragment">A web browser (preferably Chrome)</li>
+						<li class="fragment">A text editor</li>
+						<li class="fragment">A terminal</li>
+						<li class="fragment">Admin rights to your computer</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Understanding the Git branches</h2>
+					<ul>
+						<li class="fragment"><strong>step1:</strong> Start with this branch. CSS is written in Sass, and JavaScript uses jQuery with no script loader or ES6 transpiler.</li>
+						<li class="fragment"><strong>step2:</strong> Sass removed, and PostCSS added.</li>
+						<li class="fragment"><strong>step3:</strong> jQuery removed, and Babel added.</li>
+						<li class="fragment"><strong>step4:</strong> Final branch. Babel removed, and System.js and JSPM added.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Understanding the Git branches</h2>
+					<p>Each branch also includes:</p>
+					<ul>
+						<li class="fragment">A rough outline of how to complete that branch's steps.</li>
+						<li class="fragment">A "sample_workshop_files" directory that contains all of the next branch's code (but try not to peek).</li>
+					</ul>
+				</section>
+
+				<section data-background="assets/images/stop1.jpg">
+					<div style="position: relative; margin-left: -550px; margin-top: -300px;">
+						<h2>Watch for the stop signs!</h2>
+						<ul style="width: 550px;">
+							<li class="fragment">If you get lost, this is a good time to check out the next branch.</li>
+							<li class="fragment">Also a good time to get help with issues/questions.</li>
+							<li class="fragment">And go to the restroom. Please.</li>
+						</ul>
+					</div>
+				</section>
+
+				<section>
+					<div class="fragment">
+						<h1>We all fell in love with front-end code.</h1>
+						<p>Some of us just don't like it that much anymore.</p>
+					</div>
+				</section>
+
+				<section>
+					<h2>CSS is amazing!</h2>
+					<img class="stretch" src="assets/images/cssisamazing.jpg" alt="CSS is amazing!">
+				</section>
+
+				<section>
+					<h2>CSS is amazing?</h2>
+					<img class="stretch" src="assets/images/cssisamazing2.jpg" alt="CSS is amazing.">
+				</section>
+
+				<section>
+					<h2>CSS is. Amazing.</h2>
+					<img class="stretch" src="assets/images/cssisamazing3.jpg" alt="CSS is amazing?">
+				</section>
+
+				<section>
+					<h2>WTF, JS?</h2>
+					<img class="stretch" src="assets/images/jswtf.png" alt="JS, WTF?">
+				</section>
+
+				<section>
+					<h2>WTF, JS?</h2>
+					<img class="stretch" src="assets/images/jswtf2.png" alt="JS, WTF?">
+				</section>
+
+				<section data-background="assets/images/yelling.jpg">
+					<h2 class="fragment" style="text-transform: none; width: 500px; margin-left: 650px; margin-top: -100px;">"CSS is not a real<br>programming language!"</h2>
+					<h2 class="fragment" style="text-transform: none; width: 400px; margin-left: 700px; margin-top: 100px;">"JavaScript is a toy language!"</h2>
+				</section>
+
+				<section>
+					<h1>They weren't wrong.</h1>
+					<p>(But they're getting more wrong every day.)</p>
+				</section>
+
+				<section>
+					<h2>Problems with CSS</h2>
+					<ul class="fragment">
+						<li>Cross-browser compatibility issues</li>
+						<li class="fragment">Vendor prefixes</li>
+						<li class="fragment">No variables</li>
+						<li class="fragment">No inline importing</li>
+						<li class="fragment">No nested selectors</li>
+						<li class="fragment">No functions/mixins</li>
+						<li class="fragment">No color manipulation</li>
+						<li class="fragment">No basic arithmetic</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Problems with JavaScript</h2>
+					<p class="fragment">In the browser:</p>
+					<ul class="fragment">
+						<li>Messy syntax</li>
+						<li class="fragment">Cross-brower compatibility issues</li>
+						<li class="fragment">Difficult DOM traversal</li>
+						<li class="fragment">Difficulty with effects/animation</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Problems with JavaScript</h2>
+					<p class="fragment">Within the language itself:</p>
+					<ul class="fragment">
+						<li>No module-loading system</li>
+						<li class="fragment">No interpolation/template strings</li>
+						<li class="fragment">No fat arrow functions</li>
+						<li class="fragment">No default function arguments</li>
+						<li class="fragment">No class-based inheritance (I guess?)</li>
+						<li class="fragment">No constansts</li>
+						<li class="fragment">No destructuring</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Developers have been filling in the gaps in CSS and JavaScript for years.</h2>
+				</section>
+
+				<section>
+					<h2>Preprocessors became the solution.</h2>
+					<p>&hellip;and a pretty good one at the time, too.</p>
+				</section>
+
+				<section>
+					<h2>CSS:</h2>
+					<img class="stretch" src="assets/images/css_logos.png">
+				</section>
+
+				<section>
+					<h2>JavaScript:</h2>
+					<img class="stretch" src="assets/images/js_logos.png">
+				</section>
+
+				<section>
+					<h2>Typical Preprocessor Workflow:</h2>
+					<img class="stretch" style="background: transparent; border: none; box-shadow: none;" src="assets/images/pre_process_01.png" alt="1">
+				</section>
+
+				<section data-transition="none">
+					<h2>Typical Preprocessor Workflow:</h2>
+					<img class="stretch" style="background: transparent; border: none; box-shadow: none;" src="assets/images/pre_process_02.png" alt="2">
+				</section>
+
+				<section data-transition="none">
+					<h2>Typical Preprocessor Workflow:</h2>
+					<img class="stretch" style="background: transparent; border: none; box-shadow: none;" src="assets/images/pre_process_03.png" alt="3">
+				</section>
+
+				<section data-transition="none">
+					<h2>Typical Preprocessor Workflow:</h2>
+					<img class="stretch" style="background: transparent; border: none; box-shadow: none;" src="assets/images/pre_process_04.png" alt="4">
+				</section>
+
+				<section data-transition="none">
+					<h2>Typical Preprocessor Workflow:</h2>
+					<img class="stretch" style="background: transparent; border: none; box-shadow: none;" src="assets/images/pre_process_05.png" alt="5">
+				</section>
+
+				<section>
+					<h2>Coffeescript:</h2>
+					<div class="fragment">
+						<p>This:</p>
+						<pre><code>for num in [1..10]  
+  if num % 2 == 0
+    console.log "#{num} is even"
+  else
+    console.log "#{num} is odd"</code></pre>
+					</div>
+					<div class="fragment">
+						<p>Compiles to this:</p>
+						<pre><code>var num, _i;
+
+for (num = _i = 1; _i <= 10; num = ++_i) {  
+  if (num % 2 === 0) {
+    console.log("" + num + " is even");
+  } else {
+    console.log("" + num + " is odd");
+  }
+}</code></pre>
+					</div>
+				</section>
+
+				<section>
+					<h2>On the JavaScript library front:</h2>
+					<div class="fragment">
+						<p>Querying the DOM for an element in vanilla JS&hellip;</p>
+						<pre><code>var el = document.getElementById("myContainer");</code></pre>
+					</div>
+					<div class="fragment">
+						<p>&hellip;became this with jQuery:</p>
+						<pre><code>var el = $("#myContainer");</code></pre>
+					</div>
+				</section>
+
+				<section>
+					<h2>But preprocessors<br>perpetuate a problem.</h2>
+					<p>(Say that five times fast.)</p>
+				</section>
+
+				<section data-background="assets/images/abstraction.jpg">
+					<h2 style="margin-top: 300px">We're putting more and more layers of<br>abstraction between the code we write<br>and the code the browser can read.</h2>
+				</section>
+
+				<section>
+					<h2>Preprocessors are their own programming languages</h2>
+					<ul>
+						<li class="fragment">Proprietary syntax</li>
+						<li class="fragment">Often written in "non-web" languages</li>
+						<li class="fragment">"All or nothing" approach</li>
+						<li class="fragment">Not as easily extensible</li>
+						<li class="fragment">Must be compiled, today and forever</li>
+						<li class="fragment">Browsers are catching up</li>
+						<li class="fragment">Compile times can be slow</li>
+					</ul>
+				</section>
+
+				<section>
+					<img class="stretch" src="assets/images/benfrain.png" alt="slowww">
+				</section>
+
+				<section>
+					<h1>Libraries Vs. Languages</h1>
+					<p>What are new developers learning?</p>
+				</section>
+
+				<section>
+					<h1>"The New Normal"</h1>
+				</section>
+
+				<section>
+					<img style="background: transparent; border: 0; box-shadow: none; margin-left: -600px;" src="assets/images/reddit.png" alt="reddit">
+					<h2 style="margin-left: 350px; margin-top: -450px; width: 700px;">"I thought L,M,N,O was a single letter, called elameno. Sort of like double-u."</h2>
+				</section>
+
+				<section>
+					<img style="background: transparent; border: 0; box-shadow: none; margin-left: -600px;" src="assets/images/reddit.png" alt="reddit">
+					<h2 style="margin-left: 350px; margin-top: -550px; width: 700px;">"My dad once told me ponies were horses that lied, so they shrank. Made me not want to go on a pony ride. Didn't want to hang out with lying horses."</h2>
+				</section>
+
+				<section>
+					<img style="background: transparent; border: 0; box-shadow: none; margin-left: -600px;" src="assets/images/reddit.png" alt="reddit">
+					<p style="margin-left: 400px; margin-top: -500px; width: 650px;">"My dad told me to make sure I fully dry off after a shower before walking to my room, otherwise I'd catch a draft. I swear he said 'catch a giraffe' so for weeks after, I could be caught running naked from the bathroom to my bedroom, dripping wet. Never caught that damn giraffe."</p>
+				</section>
+
+				<section>
+					<h2>There's got to be a better way!</h2>
+					<img class="stretch" src="assets/images/betterway.gif" alt="better way">
+				</section>
+
+				<section>
+					<h1>Goodbye, preprocessors</h1>
+				</section>
+
+				<section>
+					<h1>Hello, postprocessors</h1>
+				</section>
+
+				<section>
+					<h2>Before you ask&hellip;</h2>
+					<p>Yes, postprocessors are still preprocessors.</p>
+					<img class="stretch" src="assets/images/lies.gif" alt="liar!">
+				</section>
+
+				<section>
+					<h2>It's not about when you're processing.<br>It's about what you're processing.</h2>
+				</section>
+
+				<section>
+					<h2>"Transpiler" might be more accurate.</h2>
+					<p>That's the preferred term on the JavaScript side.</p>
+				</section>
+
+				<section>
+					<h2>CSS Postprocessor:</h2>
+					<img class="stretch" src="assets/images/postcss.png" alt="PostCSS">
+				</section>
+
+				<section>
+					<h2>JS Transpilers:</h2>
+					<img class="stretch" src="assets/images/transpilers.png" alt="Transpilers">
+				</section>
+
+
+				<section data-transition="none">
+					<h2>Our preprocessor process:</h2>
+					<img class="stretch" style="background: transparent; border: none; box-shadow: none;" src="assets/images/pre_process_05.png" alt="5">
+				</section>
+
+				<section>
+					<h2>Our <span style="color: #28a9df;">new</span> postprocessor process:</h2>
+					<img class="stretch" style="background: transparent; border: none; box-shadow: none;" src="assets/images/post_process_01.png" alt="1">
+				</section>
+
+				<section data-transition="none">
+					<h2>Our <span style="color: #28a9df;">new</span> postprocessor process:</h2>
+					<img class="stretch" style="background: transparent; border: none; box-shadow: none;" src="assets/images/post_process_02.png" alt="2">
+				</section>
+
+				<section data-transition="none">
+					<h2>Our <span style="color: #28a9df;">new</span> postprocessor process:</h2>
+					<img class="stretch" style="background: transparent; border: none; box-shadow: none;" src="assets/images/post_process_03.png" alt="3">
+				</section>
+
+				<section data-transition="none">
+					<h2>Our <span style="color: #28a9df;">new</span> postprocessor process:</h2>
+					<img class="stretch" style="background: transparent; border: none; box-shadow: none;" src="assets/images/post_process_04.png" alt="4">
+				</section>
+
+				<section data-transition="none">
+					<h2>Our <span style="color: #28a9df;">new</span> postprocessor process:</h2>
+					<img class="stretch" style="background: transparent; border: none; box-shadow: none;" src="assets/images/post_process_05.png" alt="5">
+				</section>
+
+				<section>
+					<h2>Unlike Sass, PostCSS is modular.</h2>
+				</section>
+
+				<section>
+					<h2>Sass gives you everything,<br>whether you need it or not.</h2>
+					<img class="stretch" src="assets/images/buffet.jpg" alt="buffet">
+				</section>
+
+				<section>
+					<h2>PostCSS empowers you<br>to make your own choices.</h2>
+					<img class="stretch" src="assets/images/chipotle.jpg" alt="chipotle">
+				</section>
+
+				<section>
+					<h2>PostCSS advantages:</h2>
+					<ul class="fragment">
+						<li>Write your CSS using CSS (what a concept!).</li>
+						<li class="fragment">Use CSS3 with reckless abandon.</li>
+						<li class="fragment">Hell, use <a href="http://cssnext.io/" target="_blank">CSS4</a>. Who cares if that's not actually a thing?</li>
+						<li class="fragment">Works with your existing task runners</li>
+						<li class="fragment">Built on Node!
+							<ul class="fragment">
+								<li>No more Ruby dependencies!</li>
+								<li class="fragment">Easier to debug</li>
+								<li class="fragment">Write your own plugins in nothing but JavaScript.</li>
+								<li class="fragment">Faster compile times (40x faster than Ruby Sass / 4x faster than LibSass&hellip;allegedly).</li>
+							</ul>
+						</li>
+						<li class="fragment">Countless plugins</li>
+				</section>
+
+				<section>
+					<h2>Someday, we may even be able to<br>turn off our transpilers, and our<br>next-gen code will "just work."</h2>
+					<p class="fragment">&hellip;but let's not kid ourselves.</p>
+				</section>
+
+				<section>
+					<h2>So, how do you get started?</h2>
+					<p class="fragment">It's possible you already have.</p>
+				</section>
+
+				<section>
+					<h2>Autoprefixer</h2>
+					<img class="stretch" src="assets/images/autoprefixer.png" alt="Autoprefixer">
+				</section>
+
+				<section>
+					<h2>Autoprefixer</h2>
+					<ul>
+						<li>Popular replacement for Compass's vendor prefix mixins.</li>
+						<li class="fragment">Automatically adds prefixes to CSS3 properties.</li>
+						<li class="fragment">Define browser support via config file.</li>
+						<li class="fragment">Cross-references caniuse.com database.</li>
+						<li class="fragment">No need to memorize special function names!</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Part of the much larger<br>PostCSS ecosystem:</h2>
+					<img class="stretch" src="assets/images/postcss_universe.png" alt="PostCSS Universe">
+					<a href="http://postcss.parts/" target="_blank">postcss.parts</a>
+				</section>
+
+				<section>
+					<h2>Don't. Freak. Out.</h2>
+					<img class="stretch" src="assets/images/freakout.gif" alt="freakout">
+					<p>Believe it or not, there is life after Sass.</p>
+				</section>
+
+				<section>
+					<h2>If you can do it with Sass, you<br>can probably do it with PostCSS.</h2>
+				</section>
+
+				<section>
+					<h2>Partials/Globbing</h2>
+					<img class="stretch" src="assets/images/globbing.png" alt="Globbing">
+				</section>
+
+				<section>
+					<h2>Partials/Globbing</h2>
+					<ul class="fragment">
+						<li><a href="https://github.com/postcss/postcss-import" target="_blank">postcss-import</a> for partials.</li>
+						<li><a href="https://github.com/DennisBecker/grunt-sass-globbing" target="_blank">grunt-sass-globbing</a> works fine with PostCSS.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Nested Selectors</h2>
+					<img class="stretch" src="assets/images/nested.png" alt="Nested">
+				</section>
+
+				<section>
+					<h2>Nested Selectors</h2>
+					<ul class="fragment">
+						<li><a href="https://github.com/postcss/postcss-nested" target="_blank">postcss-nested</a></li>
+						<li class="fragment">Proposed standard still in Editor's Draft</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Just like Sass, remember to<br>use nesting sparingly.</h2> 
+					<pre><code>.just {
+    .because {
+        .you {
+            .can {
+                .doesnt {
+                    .mean {
+                        .you {
+                            .should {
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}</code></pre>
+				</section>
+
+				<section>
+					<h2>Variables</h2>
+					<p><a href="https://github.com/postcss/postcss-custom-properties">postcss-custom-properties</a>: a great opportunity to start following the (HIDEOUS) CSS custom properties syntax:</p>
+					<div class="fragment">
+						<pre><code>:root {
+    --color-blue: #0082c2;
+}
+
+.element {
+    background-color: var(--color-blue);
+}</code></pre>
+					</div>
+				</section>
+
+				<section>
+					<h2>Variables</h2>
+					<ul>
+						<li>Yes, it's ugly.</li>
+						<li class="fragment">But, it will someday be the standard, and allow for component-scoped variables.</li>
+						<li class="fragment">Already supported natively in Firefox</li>
+						<li class="fragment">Or, use <a href="https://github.com/postcss/postcss-simple-vars" target="_blank">postcss-simple-vars</a> for Sass-style variables instead.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Color</h2>
+					<ul>
+						<li>Like variables, you can follow the proposed CSS color module spec<span class="fragment">&hellip;and it's also ugly.</span></li>
+						<li class="fragment">Work in RGBA, hex, HSL, HSV or HWB.</li>
+						<li class="fragment">Use <a href="https://github.com/postcss/postcss-color" target="_blank">postcss-color</a>.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Color</h2>
+					<img class="stretch" src="assets/images/color1.jpg" alt="color 1">
+				</section>
+
+				<section>
+					<h2>Color</h2>
+					<img class="stretch" src="assets/images/color2.jpg" alt="color 2">
+				</section>
+
+				<section>
+					<h2>Color</h2>
+					<img class="stretch" src="assets/images/color3.jpg" alt="color 3">
+				</section>
+
+				<section>
+					<h2>Color</h2>
+					<img class="stretch" src="assets/images/color4.jpg" alt="color 4">
+				</section>
+
+				<section>
+					<h2>Color</h2>
+					<img class="stretch" src="assets/images/color5.jpg" alt="color 5">
+				</section>
+
+				<section>
+					<h2>Mixins/Extends</h2>
+					<ul class="fragment">
+						<li>Sass wins this one.</li>
+						<li class="fragment">Use <a href="https://github.com/postcss/postcss-mixins" target="_blank">postcss-mixins</a>. For basic arithmetic, use <a href="https://github.com/postcss/postcss-calc" target="_blank">postcss-calc</a>.</li>
+						<li class="fragment">Ask yourself: how complex are your mixins? Is that a good thing?</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>What about JavaScript?</h2>
+					<p class="fragment">Well, in case you haven't heard by now&hellip;</p>
+				</section>
+
+				<section data-background="assets/images/party.gif">
+					<h2 style="font-size: 14rem; color: #ff23d8;">EcmaScript 6 has been approved!!!</h2>
+				</section>
+
+				<section>
+					<h2>Remember this list?</h2>
+					<ul>
+						<li>No module-loading system</li>
+						<li>No interpolation/template strings</li>
+						<li>No fat arrow functions</li>
+						<li>No default function arguments</li>
+						<li>No classes</li>
+						<li>No constants</li>
+						<li>No destructuring</li>
+					</ul>
+				</section>
+
+				<section>
+					<h3>ES6 fixes these issues, and we can use it today.</h3>
+					<img class="stretch" src="assets/images/transpilers.png" alt="Transpilers">
+				</section>
+
+				<section>
+					<h2>Write ES6 code like this:</h2>
+					<pre><code>import widgetBuilder from "modules/widgetBuilder";
+
+const DEFAULT_TEXT = "This is some default text that won't change.";
+
+let exampleFn = function() {
+  
+  let tmplStr = `This is amazing!
+    it's a multiline string!
+    Our default text is ${DEFAULT_TEXT}`
+  
+};
+
+export default exampleFn;</code></pre>
+				</section>
+
+				<section>
+					<h2>Babel transpiles your code into this:</h2>
+					<pre><code>"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+var _modulesWidgetBuilder = require("modules/widgetBuilder");
+
+var _modulesWidgetBuilder2 = _interopRequireDefault(_modulesWidgetBuilder);
+
+var DEFAULT_TEXT = "This is some default text that won't change.";
+
+var exampleFn = function exampleFn() {
+
+  var tmplStr = "This is amazing!\n    it's a multiline string!\n    Our default text is " + DEFAULT_TEXT;
+};
+
+exports["default"] = exampleFn;
+module.exports = exports["default"];</code></pre>
+				</section>
+
+				<section>
+					<h2>JavaScript modules are now a reality.</h2>
+					<p class="fragment">Unfortunately, JS module loading is not.</p>
+				</section>
+
+				<section>
+					<h2>JS loaders:</h2>
+					<img class="stretch" src="assets/images/loaders.png" alt="loaders">
+					<p>Common, AMD, System, UMD</p>
+				</section>
+
+				<section>
+					<h2>System.js:</h2>
+					<ul>
+						<li class="fragment">Built on top of the ES6 Module Loader polyfill.</li>
+						<li class="fragment">~15KB minified and gzipped, runs in IE8+ and NodeJS.</li>
+						<li class="fragment">Loads practically any module format.</li>
+						<li class="fragment">Works flawlessly with its companion project, JSPM</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>JSPM:</h2>
+					<ul>
+						<li class="fragment">Package manager for System.js</li>
+						<li class="fragment">Install from any registry, including NPM and GitHub</li>
+						<li class="fragment">During development, transpiles in the browser at runtime.</li>
+						<li class="fragment">For production, outputs transpiled bundles.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>In this workshop, we will:</h2>
+					<ul>
+						<li class="fragment">Convert Sass to PostCSS.</li>
+						<li class="fragment">Convert jQuery to vanilla JS written in ES6, via Babel.</li>
+						<li class="fragment">Use system.js and JSPM to manage and load our modules.</li>
+						<li class="fragment">Rejoice.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>It's time to fall in love with<br>real code all over again.</h2>
+				</section>
+
+				<section>
+					<h2>Make sure you're on<br>the step1 branch now.</h2>
+					<img class="stretch" src="assets/images/stop2.jpg" alt="Stop">
+					<h3>#kicksass</h3>
+				</section>
+
+				<section>
+					<h1>Convert Sass<br>to PostCSS</h1>
+				</section>
+
+				<section>
+					<h2>If you're lost, check out<br>the step2 branch now.</h2>
+					<img class="stretch" src="assets/images/stop3.jpg" alt="Stop">
+					<h3>#kicksass</h3>
+				</section>
+
+				<section>
+					<h1>Convert jQuery to vanilla JS written in ES6, via Babel.</h1>
+				</section>
+
+				<section>
+					<h2>If you're lost, check out<br>the step3 branch now.</h2>
+					<img class="stretch" src="assets/images/stop4.jpg" alt="Stop">
+					<h3>#kicksass</h3>
+				</section>
+
+				<section>
+					<h1>Use system.js and JSPM to manage and load our modules.</h1>
+				</section>
+
+				<section>
+					<h2>We're done! If you got lost,<br>check out the step4 branch<br>to see the final code.</h2>
+					<img class="stretch" src="assets/images/stop5.jpg" alt="Stop">
+					<h3>#kicksass</h3>
+				</section>
+
+				<section>
+					<h2>Thanks for listening.</h2>
+					<img class="stretch" src="assets/images/listen.gif" alt="colbert">
+					<ul style="list-style: none;">
+						<li style="margin-bottom: 15px;">Slides: <a href="http://bit.ly/1LXTuVq" target="_blank">http://bit.ly/1LXTuVq</a></li>
+						<li style="margin-bottom: 15px;">Resources: <a href="http://degdigital.github.io/conference/sxsw2016" target="_blank">http://degdigital.github.io/conference/sxsw2016</a></li>
+						<li style="margin-bottom: 15px;">Twitter: <a href="https://twitter.com/aladage" target="_blank">https://twitter.com/aladage</a></li>
+					</ul>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="assets/js/head.min.js"></script>
+		<script src="assets/js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'fade', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'assets/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'assets/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'assets/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'assets/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'assets/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'assets/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

@@ -1,0 +1,31 @@
+.text-reverse.text-reverse {
+	color: #000;
+	text-shadow: 0 0 15px #41EDF6;
+}
+
+.text-large.text-large {
+	font-size: 4em;
+}
+
+.checklist.checklist {
+	list-style: none;
+	list-style-position: inside;
+	margin: 0;
+}
+
+.checklist.checklist li {
+	padding-left: 1em;
+	text-indent: -1em;
+}
+
+.red {
+	color: red;
+}
+
+.yellow {
+	color: yellow;
+}
+
+.green {
+	color: green;
+}
